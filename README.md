@@ -4,17 +4,19 @@
 
 ## requirements
 
-beautifulsoup==4 4.9.3 selenium==3.141.0 .0 db-sqlite==3 0.0.1
+beautifulsoup==4.9.3 
+selenium==3.141.0 .0 
+db-sqlite==3 0.0.1
 
 ## For PZN number:
-1.PZN
-2.Competitor_Name
-3.Competitor_price
-4.Versand_frei_ab
-5.Grundpreis
-6.Versandcost
-7.Gesamtkosten
-8.Created_at
+1. PZN
+2. Competitor_Name
+3. Competitor_price
+4. Versand_frei_ab
+5. Grundpreis
+6. Versandcost
+7. Gesamtkosten
+8. Created_at
 
 ## Usage
 ### Change path to webserver and .csv file contaaining pzn number 
