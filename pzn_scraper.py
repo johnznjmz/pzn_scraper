@@ -118,7 +118,7 @@ data = pd.DataFrame(
      'Grundpreis': competitor_Grundpreis_list,
      'Versand_cost': competitor_Versand_cost_list,
      'Gesamtkosten': competitor_Gesamtkosten_list,
-     'Created at': date,
+     'Created_at': date,
      })
 
 # Save dataframe to db
