@@ -1,12 +1,12 @@
-#PZN scraper
+# PZN scraper
 
-Search with PZN and extract the princing details.
+## Search with PZN and extract the princing details.
 
-##requirements
+## requirements
 
 beautifulsoup==4 4.9.3 selenium==3.141.0 .0 db-sqlite==3 0.0.1
 
-##For PZN number:
+## For PZN number:
 1.PZN
 2.Competitor_Name
 3.Competitor_price
@@ -16,11 +16,10 @@ beautifulsoup==4 4.9.3 selenium==3.141.0 .0 db-sqlite==3 0.0.1
 7.Gesamtkosten
 8.Created_at
 
+## Usage
+### Change path to webserver and .csv file contaaining pzn number 
 
-
-#Change path to webserver and .csv file contaaining pzn number 
-
-#Run the script pzn_scraper.py
+### Run the script pzn_scraper.py
 
 Created basic scraping script for searching with pzn and can view the pricing details of competitor.
 currently one can search for pricing details data which belongs to a pzn in apomio.de.
