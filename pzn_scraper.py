@@ -13,7 +13,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 #web driver options
 options = Options()
-options.headless = False
+options.headless = True
 options.add_argument("--window-size=1920,1200")
 
 # webdriver path
