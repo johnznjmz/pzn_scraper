@@ -50,11 +50,11 @@ for pzn in pzn_data['pzn']:
     # urls.append(mehr)
 
     # for url in urls:
-    url = driver.current_url
-    soup = BeautifulSoup(url)
-    # page = requests.get(url)
-    # time.sleep(5)
-    # soup = BeautifulSoup(page.text, 'html.parser')
+    #url = driver.current_url
+    #soup = BeautifulSoup(url)
+    page = requests.get(url)
+    time.sleep(5)
+    soup = BeautifulSoup(page.text, 'html.parser')
 
     price_tag = soup.find_all("div", class_="w-1/2 pr-3 xl:pr-0 text-right")
     name_tag = soup.find_all("span", class_="w-5/6 block text-xs text-black-darker mb-2")
