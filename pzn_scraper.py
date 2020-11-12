@@ -50,7 +50,7 @@ for pzn in pzn_data['pzn']:
     # urls.append(mehr)
 
     # for url in urls:
-    #url = driver.current_url
+    url = driver.current_url
     #soup = BeautifulSoup(url)
     page = requests.get(url)
     time.sleep(5)
