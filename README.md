@@ -19,7 +19,7 @@ db-sqlite==3 0.0.1
 8. Created_at
 
 ## Usage
-### Change path to webserver and .csv file contaaining pzn number 
+### Change path to webdriver and .csv file containing pzn number 
 
 ### Run the script pzn_scraper.py
 
