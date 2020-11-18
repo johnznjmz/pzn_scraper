@@ -11,8 +11,9 @@ date = datetime.now()
 conn = sqlite3.connect('pzn_price.db')
 c = conn.cursor()
 
-pzns = pd.read_csv("PZN_Ö.csv")
+pzns = pd.read_csv("PZN_Ö.csv") #Edit-- copy paste the your file path, file should contain column 'pzn'
 
+#create a list of urls for every pzn and save to the list 'urls'
 urls = []
 
 for pzn in pzns['pzn']:
@@ -22,7 +23,7 @@ for pzn in pzns['pzn']:
     urls.append(query_urls)
     urls.append(mehr_angebote_url)
 
-
+#parse each url using Beautifulsoup and create a dataframe
 def parse(url):
     html = requests.get(url)
     soup = BeautifulSoup(html.content, 'html.parser', from_encoding="utf-8")
@@ -35,9 +36,9 @@ def parse(url):
                                'Last_preis_update',
                                'Created_at'])
 
-    for each in soup.find_all('div', id=re.compile("comparisonRow")):
+    for each in soup.find_all('div', id=re.compile("comparisonRow")):  #Find div with matching id with "comparisonRow"
         try:
-            competitor_name = each.find(class_='w-5/6 block text-xs text-black-darker mb-2').text.replace('\n', '')
+            competitor_name = each.find(class_='w-5/6 block text-xs text-black-darker mb-2').text.replace('\n', '')  #find class text, While none append 'None'
         except:
             competitor_name = 'None'
         try:
@@ -58,10 +59,10 @@ def parse(url):
         except:
             gesamtkosten = 'None'
 
-        updated_at = date.strftime("%d/%m/%Y %H:%M:%S")
-        pzn_id = re.sub("[^0-9]", "", url)
+        updated_at = date.strftime("%d/%m/%Y %H:%M:%S") #scrape time
+        pzn_id = re.sub("[^0-9]", "", url) #pznid from url
 
-        data = df.append({'PZN': pzn_id, 'Competitor_name': competitor_name,
+        data = df.append({'PZN': pzn_id, 'Competitor_name': competitor_name,   # Create datframe 
                           'Competitor_shop_price': competitor_shop_price,
                           'Versand_cost': versand_cost,
                           'Gesamtkosten': gesamtkosten,
@@ -75,7 +76,7 @@ for url in urls:
     product_price = parse(url)
 
     c.execute(
-        'CREATE TABLE IF NOT EXISTS PRICE (PZN,Competitor_Name,Competitor_price,Versand_cost,Gesamtkosten,Last_preis_update,Created at)')
+        'CREATE TABLE IF NOT EXISTS PRICE (PZN,Competitor_Name,Competitor_price,Versand_cost,Gesamtkosten,Last_preis_update,Created at)') #Creates table
     conn.commit()
 
     product_price.to_sql('PRICE', conn, if_exists='replace', index=False)
