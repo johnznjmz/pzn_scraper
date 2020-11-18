@@ -61,7 +61,7 @@ def create_table():
             versand_cost = 'None'
         try:
             last_preis_update = each.find(class_="block text-xxs text-black-darker").text.replace(
-                "Preis vom", "").replace("Preis kann jetzt höher sein.**", "")
+                "Preis vom", "").replace(". Preis kann jetzt höher sein.**", "")
         except:
             last_preis_update = 'None'
         try:
