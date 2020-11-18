@@ -16,7 +16,7 @@ urllib3==1.26.2
 6. Versandcost
 7. Gesamtkosten
 8. Last_preis_update
-9. Updated_at
+9. Created_at 
 
 ## Usage
 ### Change/add path to .csv file containing pzn number, (PZN_Ö.csv)
