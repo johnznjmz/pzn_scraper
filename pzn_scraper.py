@@ -41,7 +41,7 @@ def create_table():
                                  'Versand_cost',
                                  'Gesamtkosten',
                                  'Last_preis_update',
-                                 'Updated_at'])
+                                 'Created_at'])
 
     for each in soup.find_all('div', id=re.compile("comparisonRow")):  # Find div with matching id "comparisonRow"
         try:
@@ -51,27 +51,26 @@ def create_table():
             competitor_name = 'None'
         try:
             competitor_shop_price = each.find(class_="text-red text-xl font-bold no-underline block mb-1").text.replace(
-                "\n", '')
-            competitor_shop_price = re.sub("[^0-9]", "", competitor_shop_price)
+                "\n", '').replace(" ", "")
         except:
             competitor_shop_price = 'None'
         try:
-            versand_cost = each.find(class_="block text-xs text-black-darker mb-1").text.replace("\n", '')
-            versand_cost = re.sub("[^0-9]", "", versand_cost)
+            versand_cost = each.find(class_="block text-xs text-black-darker mb-1").text.replace(
+                "Versand", "").replace("'", "")
         except:
-            versand_cost = 'versandkostenfrei'
+            versand_cost = 'None'
         try:
-            last_preis_update = each.find(class_="block text-xxs text-black-darker").text.replace("\n", '')
-            last_preis_update = re.sub("[^0-9]", "", last_preis_update)
+            last_preis_update = each.find(class_="block text-xxs text-black-darker").text.replace(
+                "Preis vom", "").replace("Preis kann jetzt höher sein.**", "")
         except:
             last_preis_update = 'None'
         try:
-            gesamtkosten = each.find(class_="block text-xs text-black font-medium").text.replace("\n", '')
-            gesamtkosten = re.sub("[^0-9]", "", gesamtkosten)
+            gesamtkosten = each.find(class_="block text-xs text-black font-medium").text.replace(
+                "\n", '').replace("Gesamtkosten", "").replace(" ", "")
         except:
             gesamtkosten = 'None'
 
-        updated_at = date.strftime("%d/%m/%Y %H:%M:%S")  # scrape time
+        created_at = date.strftime("%d/%m/%Y %H:%M:%S")  # scrape time
         pzn_id = re.sub("[^0-9]", "", url)  # pzn_id from url
 
         data = data.append({'PZN': pzn_id, 'Competitor_name': competitor_name,
@@ -79,7 +78,7 @@ def create_table():
                             'Versand_cost': versand_cost,
                             'Gesamtkosten': gesamtkosten,
                             'Last_preis_update': last_preis_update,
-                            'Updated_at': updated_at},
+                            'Created_at': created_at},
                            ignore_index=True)
     return data
 
@@ -89,7 +88,7 @@ for url in urls:
     product_price = create_table()
 
     c.execute(
-        'CREATE TABLE IF NOT EXISTS PRICE ("PZN" varchar NOT NULL,"Competitor_Name" varchar NOT NULL,"Competitor_price" varchar NOT NULL,"Versand_cost" varchar NOT NULL,"Gesamtkosten" varchar NOT NULL,"Last_preis_update" varchar NOT NULL,"Created at" varchar NOT NULL)')
+        'CREATE TABLE IF NOT EXISTS PRICE ("PZN" varchar NOT NULL,"Competitor_Name" varchar NOT NULL,"Competitor_shop_price" varchar NOT NULL,"Versand_cost" varchar NOT NULL,"Gesamtkosten" varchar NOT NULL,"Last_preis_update" varchar NOT NULL,"Created_at" varchar NOT NULL)')
     conn.commit()
 
     product_price.to_sql('PRICE', conn, if_exists='append', index=False)
