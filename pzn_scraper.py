@@ -7,14 +7,11 @@ import requests
 from bs4 import BeautifulSoup
 
 date = datetime.now()
-
-conn = sqlite3.connect('pzn_price.db')
+conn = sqlite3.connect('pzn_price.db')  # Db name
 c = conn.cursor()
 
 pzns = pd.read_csv("PZN_Ö.csv")  # Edit-- copy paste the your file path, file should contain column 'pzn'
-
-# create a list of urls for every pzn and save to the list 'urls'
-urls = []
+urls = []  # create a list of urls for every pzn and save to the list 'urls'
 
 for pzn in pzns['pzn']:
     query_urls = "https://www.apomio.de/suche?query=" + str(pzn)
@@ -24,7 +21,7 @@ for pzn in pzns['pzn']:
     urls.append(mehr_angebote_url)
 
 
-# parse each url using Beautifulsoup
+# parse each url using BeautifulSoup
 def parse(url):
     header = {
         "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36",
@@ -35,7 +32,6 @@ def parse(url):
 
 
 # Create a data frame from parse text
-
 def create_table():
     soup = parse(url)
 
