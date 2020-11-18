@@ -26,4 +26,4 @@ urllib3==1.26.2
 
 Created basic scraping script for searching with pzn and can view the pricing details of competitor.
 currently one can search for pricing details data which belongs to a pzn in apomio.de.
-The data is then stored to,'pzn_price.db 
+The data is then stored to table price in 'pzn_price.db 
