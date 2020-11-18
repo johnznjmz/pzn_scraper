@@ -6,7 +6,6 @@
 
 pandas
 beautifulsoup4==4.9.3
-mysql-connector-python==8.0.22
 requests==2.25.0
 urllib3==1.26.2
 
