@@ -19,7 +19,7 @@ urllib3==1.26.2
 8. Created_at
 
 ## Usage
-### Change path to .csv file containing pzn number 
+### Change/add path to .csv file containing pzn number, (PZN_Ö.csv)
 
 ### Run the script pzn_scraper.py
 
