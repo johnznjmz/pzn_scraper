@@ -35,7 +35,7 @@ def parse(url):
 def create_table():
     soup = parse(url)
 
-    data = pd.DataFrame(columns=['PZN',
+    data = pd.DataFrame(columns=['Pzn',
                                  'Competitor_name',
                                  'Competitor_shop_price',
                                  'Versand_cost',
@@ -51,12 +51,12 @@ def create_table():
             competitor_name = 'None'
         try:
             competitor_shop_price = each.find(class_="text-red text-xl font-bold no-underline block mb-1").text.replace(
-                "\n", '').replace(" ", "")
+                "\n", '').replace("€", "").replace(" ", "").replace(",", ".")
         except:
             competitor_shop_price = 'None'
         try:
             versand_cost = each.find(class_="block text-xs text-black-darker mb-1").text.replace(
-                "Versand", "").replace("'", "")
+                "Versand", "").replace("'", "").replace("€", "")
         except:
             versand_cost = 'None'
         try:
@@ -66,14 +66,14 @@ def create_table():
             last_preis_update = 'None'
         try:
             gesamtkosten = each.find(class_="block text-xs text-black font-medium").text.replace(
-                "\n", '').replace("Gesamtkosten", "").replace(" ", "")
+                "\n", '').replace("Gesamtkosten", "").replace(" ", "").replace("€", "").replace(",", ".")
         except:
             gesamtkosten = 'None'
 
         created_at = date.strftime("%d/%m/%Y %H:%M:%S")  # scrape time
         pzn_id = re.sub("[^0-9]", "", url)  # pzn_id from url
 
-        data = data.append({'PZN': pzn_id, 'Competitor_name': competitor_name,
+        data = data.append({'Pzn': pzn_id, 'Competitor_name': competitor_name,
                             'Competitor_shop_price': competitor_shop_price,
                             'Versand_cost': versand_cost,
                             'Gesamtkosten': gesamtkosten,
@@ -88,7 +88,7 @@ for url in urls:
     product_price = create_table()
 
     c.execute(
-        'CREATE TABLE IF NOT EXISTS PRICE ("PZN" varchar NOT NULL,"Competitor_Name" varchar NOT NULL,"Competitor_shop_price" varchar NOT NULL,"Versand_cost" varchar NOT NULL,"Gesamtkosten" varchar NOT NULL,"Last_preis_update" varchar NOT NULL,"Created_at" varchar NOT NULL)')
+        'CREATE TABLE IF NOT EXISTS Price ("Pzn" INT NOT NULL,"Competitor_Name" varchar NOT NULL,"Competitor_shop_price" FLOAT NOT NULL,"Versand_cost" varchar NOT NULL,"Gesamtkosten" FLOAT NOT NULL,"Last_preis_update" varchar NOT NULL,"Created_at" varchar NOT NULL)')
     conn.commit()
 
-    product_price.to_sql('PRICE', conn, if_exists='append', index=False)
+    product_price.to_sql('Price', conn, if_exists='append', index=False)
