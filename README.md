@@ -15,7 +15,7 @@ urllib3==1.26.2
 3. Competitor_price
 6. Versandcost
 7. Gesamtkosten
-8. Last_preis_update
+8. Last_price_update
 9. Created_at 
 
 ## Usage
