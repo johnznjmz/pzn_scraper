@@ -45,8 +45,8 @@ def create_table():
 
     for each in soup.find_all('div', id=re.compile("comparisonRow")):  # Find div with matching id "comparisonRow"
         try:
-            competitor_name = each.find(class_='w-5/6 block text-xs text-black-darker mb-2').text.replace('\n',
-                                                                                                          '')  # Find class text, While none append 'None'
+            competitor_name = each.find(class_='w-5/6 block text-xs text-black-darker mb-2').text.replace(
+                '\n','').replace(" ", "")   # Find text in a class, otherwsie append 'None'
         except:
             competitor_name = 'None'
         try:
